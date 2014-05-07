@@ -28,22 +28,29 @@ namespace CadenceService
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<UserObject> debugList; 
+        private ObservableCollection<string> userList; 
         private Pubnub pn;
+        private static string channelName = "test";
+        private bool disconnectShown = false;
 
         public MainWindow()
         {
             InitializeComponent();
+            userList = new ObservableCollection<string>();
+            UserListView.ItemsSource = userList;
 
             //var timer = new DispatcherTimer(new TimeSpan(0, 0, 0, 1), DispatcherPriority.Normal,
                 //(sender, args) => AddUsers()), Dispatcher);
 
             pn = new Pubnub("pub-c-18bc7bd1-2981-4cc4-9c4e-234d25519d36", "sub-c-5782df52-d147-11e3-93dd-02ee2ddab7fe");
 
-            pn.Subscribe<string>("test", delegate(string o) { }, delegate(string o) { }, delegate(PubnubClientError error) { });
-            pn.Presence<string>("test", OnUserPresence, OnPresenceConnect, OnPresenceError);
+            pn.Subscribe<string>(channelName, delegate(string o) { }, delegate(string o) { }, delegate(PubnubClientError error) { });
+            pn.Presence<string>(channelName, OnUserPresence, OnPresenceConnect, OnPresenceError);
 
-            pn.HereNow<string>("test", true, true, AddUsers, DisplayErrorMessage);
+            ConnectionStatusLabel.Content = "Connected";
+            ConnectionStatusLabel.Foreground = Brushes.White;
+            ConnectButton.Click -= ConnectButton_OnClick;
+            ConnectButton.Opacity = 0.3;
         }
 
         private void DisplayErrorMessage(PubnubClientError obj)
@@ -57,30 +64,69 @@ namespace CadenceService
         }
         private void  AddUsers(string info)
         {
-            //PresenceList list = (PresenceList)JObject.Parse(info);
-            PresenceList values =  JsonConvert.DeserializeObject<PresenceList>(info);
-            MessageBox.Show(info);
-            //UserListView.Items.Add(new UserObject()
-            //{
-            //    Time = 1,
-            //    ConnType = "CPU",
-            //    Guid = info
-            //});
+            Dispatcher.Invoke(delegate { userList.Clear(); });
+            string jString = info.Substring(1).Remove(info.IndexOf("},\""));
+            PresenceList presence =  JsonConvert.DeserializeObject<PresenceList>(jString);
+
+            
+            Dispatcher.Invoke(delegate
+            {
+                userList.Clear();
+                numUsersTextBlock.Text = presence.occupancy.ToString();
+
+                foreach (Uuid uuid in presence.uuids)
+                {
+                    userList.Add(uuid.uuid);
+                }
+            });
         }
 
         private void OnPresenceError(PubnubClientError obj)
         {
-            MessageBox.Show("presenceerror");
+            if (!disconnectShown)
+            {
+                disconnectShown = true;
+                MessageBox.Show("Error. Service disconnected.");
+            }
+            
+            Dispatcher.Invoke(delegate
+            {
+                ConnectionStatusLabel.Content = "Disconnected";
+                ConnectionStatusLabel.Foreground = Brushes.Black;
+                ConnectButton.Click += ConnectButton_OnClick;
+                ConnectButton.Opacity = 1;
+            });
         }
 
         private void OnPresenceConnect(string obj)
         {
-            MessageBox.Show("presenceconnect");
+            // Presuming that these are connect/disconnect notifications
+            pn.HereNow<string>(channelName, true, true, AddUsers, DisplayErrorMessage);
         }
 
         private void OnUserPresence(string obj)
         {
-            MessageBox.Show("userpresence");
+            // Presuming that these are messages, not connect/disconnect notifications
+            pn.HereNow<string>(channelName, true, true, AddUsers, DisplayErrorMessage);
+
+
+            UpdatePresence();
+        }
+
+        private void ConnectButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            pn.Subscribe<string>(channelName, delegate(string o) { }, delegate(string o) { }, delegate(PubnubClientError error) { });
+            pn.Presence<string>(channelName, OnUserPresence, OnPresenceConnect, OnPresenceError);
+
+            ConnectionStatusLabel.Content = "Connected";
+            ConnectionStatusLabel.Foreground = Brushes.White;
+            ConnectButton.Click -= ConnectButton_OnClick;
+            ConnectButton.Opacity = 0.3;
+        }
+
+        private void UpdatePresence(string uuid, int timestamp, string action)
+        {
+            
         }
     }
 }
