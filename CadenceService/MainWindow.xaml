@@ -4,12 +4,12 @@
         Title="MainWindow" Height="418.06" Width="1089.657" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
         <Border BorderBrush="#FF7C7C7C" BorderThickness="4,4,4,4">
-            <ListView x:Name="DebugListView_Copy" Margin="560,117,-16,6" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
+            <ListView x:Name="UserListView" Margin="565,117,6,6" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID" Width="120" DisplayMemberBinding="{Binding ID}" />
-                        <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding Type}" />
-                        <GridViewColumn Header="Message" Width="150" DisplayMemberBinding="{Binding Message}" />
+                        <GridViewColumn Header="Time" Width="50" DisplayMemberBinding="{Binding Time}" />
+                        <GridViewColumn Header="Connection Type" Width="200" DisplayMemberBinding="{Binding ConnType}" />
+                        <GridViewColumn Header="GUID" Width="240" DisplayMemberBinding="{Binding Guid}" />
                     </GridView>
                 </ListView.View>
             </ListView>
