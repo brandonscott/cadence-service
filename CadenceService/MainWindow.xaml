@@ -7,9 +7,9 @@
             <ListView x:Name="DebugListView" Margin="565,117,6,6" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Time" Width="50" DisplayMemberBinding="{Binding Time}" />
-                        <GridViewColumn Header="Connection Type" Width="200" DisplayMemberBinding="{Binding ConnType}" />
-                        <GridViewColumn Header="GUID" Width="240" DisplayMemberBinding="{Binding Guid}" />
+                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding date}" />
+                        <GridViewColumn Header="Action" Width="150" DisplayMemberBinding="{Binding action}" />
+                        <GridViewColumn Header="UUID" Width="240" DisplayMemberBinding="{Binding uuid}" />
                     </GridView>
                 </ListView.View>
             </ListView>
