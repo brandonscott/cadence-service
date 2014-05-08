@@ -88,6 +88,7 @@ namespace CadenceService
             {
                 disconnectShown = true;
                 MessageBox.Show("Error. Service disconnected.");
+                MessageBox.Show(obj.ToString());
             }
             
             Dispatcher.Invoke(delegate
@@ -110,8 +111,15 @@ namespace CadenceService
             // Presuming that these are messages, not connect/disconnect notifications
             pn.HereNow<string>(channelName, true, true, AddUsers, DisplayErrorMessage);
 
+            string jString = obj.Substring(1).Remove(obj.IndexOf("},\""));
+            UserAction userAction = JsonConvert.DeserializeObject<UserAction>(jString);
 
-            UpdatePresence();
+            Dispatcher.Invoke(delegate
+            {
+                DebugListView.Items.Add(userAction);
+            });
+
+            UpdatePresence(userAction);
         }
 
         private void ConnectButton_OnClick(object sender, RoutedEventArgs e)
