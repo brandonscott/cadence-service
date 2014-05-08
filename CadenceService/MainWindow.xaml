@@ -4,31 +4,31 @@
         Title="MainWindow" Height="418.06" Width="1089.657" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
         <Border BorderBrush="#FF7C7C7C" BorderThickness="4,4,4,4">
-            <ListView x:Name="UserListView" Margin="565,117,6,6" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
+            <ListView x:Name="DebugListView" Margin="565,117,6,6" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Time" Width="50" DisplayMemberBinding="{Binding Time}" />
-                        <GridViewColumn Header="Connection Type" Width="200" DisplayMemberBinding="{Binding ConnType}" />
-                        <GridViewColumn Header="GUID" Width="240" DisplayMemberBinding="{Binding Guid}" />
+                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding date}" />
+                        <GridViewColumn Header="Action" Width="150" DisplayMemberBinding="{Binding action}" />
+                        <GridViewColumn Header="UUID" Width="240" DisplayMemberBinding="{Binding uuid}" />
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </Border>
         <StackPanel Background="#FFFF4D4D" Margin="4,4,3.6,341.4">
             <TextBlock HorizontalAlignment="Left" x:Name="tbAppLabel" Padding="8,12,8,8" TextWrapping="Wrap" Text="Cadence Server Host" Foreground="#FFFFFFFF" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="36"/>
+            <Label Name="ConnectionStatusLabel" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-50,0,0" Content="Disconnected" Foreground="Black" FontSize="25" />
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" x:Name="tbDebug" Padding="8,12,8,8" TextWrapping="Wrap" Text="Debug" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="2,77,0,0"/>
-        <Button Margin="477,78,0,302.4" Content="Start" FontSize="22" HorizontalAlignment="Left" Width="71"/>
-        <ListView Name="DebugListView" Margin="10,121,541.6,10.4" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
+        <TextBlock HorizontalAlignment="Left" x:Name="tbDebug" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="2,77,0,0"><Run Language="en-gb" Text="Users"/></TextBlock>
+        <Button Name="ConnectButton" Margin="985,81,0,300" Content="Connect" FontSize="22" HorizontalAlignment="Left" Width="95" Click="ConnectButton_OnClick"/>
+        <ListView Name="UserListView" Margin="10,121,541.6,10.4" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="120" DisplayMemberBinding="{Binding ID}" />
-                    <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding Type}" />
-                    <GridViewColumn Header="Message" Width="150" DisplayMemberBinding="{Binding Message}" />
+                    <GridViewColumn Header="UUID" Width="400" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock HorizontalAlignment="Left" x:Name="tbDebug_Copy" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="564,77,0,0" Height="46"><Run Text="Users"/><LineBreak/><Run/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Text="Number of Users: " Margin="305,-215,0,0" FontSize="18" Width="140" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock Name="numUsersTextBlock" TextWrapping="Wrap" Text="0 " Margin="450,-215,0,0" FontSize="18" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock HorizontalAlignment="Left" x:Name="tbDebug_Copy" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="564,77,0,0" Height="46"><Run Language="en-gb" Text="Debug"/></TextBlock>
     </Grid>
 </Window>
