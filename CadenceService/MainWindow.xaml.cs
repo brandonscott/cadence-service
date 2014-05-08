@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,11 +67,9 @@ namespace CadenceService
         }
         private void  AddUsers(string info)
         {
-            Dispatcher.Invoke(delegate { userList.Clear(); });
             string jString = info.Substring(1).Remove(info.IndexOf("},\""));
             PresenceList presence =  JsonConvert.DeserializeObject<PresenceList>(jString);
 
-            
             Dispatcher.Invoke(delegate
             {
                 userList.Clear();
