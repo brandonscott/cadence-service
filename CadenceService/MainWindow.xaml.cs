@@ -133,9 +133,25 @@ namespace CadenceService
             ConnectButton.Opacity = 0.3;
         }
 
-        private void UpdatePresence(string uuid, int timestamp, string action)
+        private void UpdatePresence(UserAction presence)
         {
-            
+            int status = 0;
+
+            if (presence.action.Equals("join"))
+            {
+                status = 1;
+            }
+
+            WebClient wc = new WebClient();
+            NetworkCredential nc = new NetworkCredential("brandon@brandonscott.co.uk", "Cadenc3!");
+            wc.Credentials = nc;
+
+            NameValueCollection nvc = new NameValueCollection()
+            {
+                { "status", status.ToString(CultureInfo.InvariantCulture) }
+            };
+
+            wc.UploadValues(string.Format("http://cadence-bu.cloudapp.net/servers/{0}/status", presence.uuid), "PUT", nvc);
         }
     }
 }
