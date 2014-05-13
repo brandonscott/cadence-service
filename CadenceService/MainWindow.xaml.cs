@@ -87,7 +87,7 @@ namespace CadenceService
             Dispatcher.Invoke(delegate
             {
                 userList.Clear();
-                numUsersTextBlock.Text = presence.occupancy.ToString();
+                NumUsersTextBlock.Text = presence.occupancy.ToString();
 
                 foreach (Uuid uuid in presence.uuids)
                 {
