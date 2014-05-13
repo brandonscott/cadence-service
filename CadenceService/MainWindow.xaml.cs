@@ -146,24 +146,31 @@ namespace CadenceService
 
         private void UpdatePresence(UserAction presence)
         {
-            int status = 0;
-
-            if (presence.action.Equals("join"))
+            try
             {
-                status = 1;
+                var status = 0;
+
+                if (presence.action.Equals("join"))
+                {
+                    status = 1;
+                }
+
+                var wc = new WebClient();
+                var nc = new NetworkCredential("brandon@brandonscott.co.uk", "Cadenc3!");
+                wc.Credentials = nc;
+
+                var nvc = new NameValueCollection
+                {
+                    {"status", status.ToString(CultureInfo.InvariantCulture)}
+                };
+
+                wc.UploadValues(string.Format("http://cadence-bu.cloudapp.net/servers/{0}/status", presence.uuid), "PUT",
+                    nvc);
             }
-
-            WebClient wc = new WebClient();
-            NetworkCredential nc = new NetworkCredential("brandon@brandonscott.co.uk", "Cadenc3!");
-            wc.Credentials = nc;
-
-            NameValueCollection nvc = new NameValueCollection
+            catch (Exception)
             {
-                {"status", status.ToString(CultureInfo.InvariantCulture)}
-            };
-
-            wc.UploadValues(string.Format("http://cadence-bu.cloudapp.net/servers/{0}/status", presence.uuid), "PUT",
-                nvc);
+                UpdatePresence(presence);
+            }
         }
     }
 }
