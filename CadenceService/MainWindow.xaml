@@ -14,12 +14,12 @@
                 </ListView.View>
             </ListView>
         </Border>
-        <StackPanel Background="#FFFF4D4D" Margin="4,4,3.6,341.4">
-            <TextBlock HorizontalAlignment="Left" x:Name="tbAppLabel" Padding="8,12,8,8" TextWrapping="Wrap" Text="Cadence Server Host" Foreground="#FFFFFFFF" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="36"/>
-            <Label Name="ConnectionStatusLabel" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-50,0,0" Content="Disconnected" Foreground="Black" FontSize="25" />
+        <StackPanel Background="#FF4A90E2" Margin="4,4,3.6,341.4">
+            <TextBlock HorizontalAlignment="Left" x:Name="tbAppLabel" Padding="8,12,8,8" TextWrapping="Wrap" Text="Cadence Availability Service" Foreground="#FFFFFFFF" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="36"/>
+            <Label Name="ConnectionStatusLabel" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-50,0,0" Content="Disconnected" Foreground="#FFFFFFFF" FontSize="25" />
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" x:Name="tbDebug" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="2,77,0,0"><Run Language="en-gb" Text="Users"/></TextBlock>
-        <Button Name="ConnectButton" Margin="985,81,0,300" Content="Connect" FontSize="22" HorizontalAlignment="Left" Width="95" Click="ConnectButton_OnClick"/>
+        <Button Name="ConnectButton" Margin="985,81,0,300" Content="Connect" FontSize="22" HorizontalAlignment="Left" Background="#FF4A90E2" Foreground="White" BorderBrush="#FF4A90E2" Width="95" Click="ConnectButton_OnClick"/>
         <ListView Name="UserListView" Margin="10,121,541.6,10.4" BorderBrush="#FF7C7C7C"  BorderThickness="4,4,4,4" Foreground="#FF7C7C7C">
             <ListView.View>
                 <GridView>
@@ -27,8 +27,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock TextWrapping="Wrap" Text="Number of Users: " Margin="305,-215,0,0" FontSize="18" Width="140" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <TextBlock Name="numUsersTextBlock" TextWrapping="Wrap" Text="0 " Margin="450,-215,0,0" FontSize="18" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <TextBlock HorizontalAlignment="Left" x:Name="tbDebug_Copy" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="564,77,0,0" Height="46"><Run Language="en-gb" Text="Debug"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" Text="Number of Users: " Margin="305,-215,0,0" FontSize="18" Foreground="#FF7C7C7C" Width="140" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock Name="NumUsersTextBlock" TextWrapping="Wrap" Text="0 " Margin="450,-215,0,0" FontSize="18" Foreground="#FF7C7C7C" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock HorizontalAlignment="Left" x:Name="DebugTextBlock" Padding="8,12,8,8" TextWrapping="Wrap" Foreground="#FF7C7C7C" VerticalAlignment="Top" FontFamily="Gill Sans MT"  FontSize="22" Margin="564,77,0,0" Height="46"><Run Language="en-gb" Text="Debug"/></TextBlock>
     </Grid>
 </Window>
